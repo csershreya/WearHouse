@@ -1,0 +1,24 @@
+{
+    "projects": {
+      "frontend": {
+        "root": "frontend",
+        "buildCommand": "npm start",
+        "outputDirectory": "frontend/build"
+      },
+      "admin": {
+        "root": "admin",
+        "buildCommand": "npm run dev",
+        "outputDirectory": "admin/dist"
+      }
+    },
+    "builds": [
+      { "src": "frontend/package.json", "use": "@vercel/static-build", "config": { "distDir": "frontend/build" } },
+      { "src": "admin/package.json", "use": "@vercel/static-build", "config": { "distDir": "admin/dist" } },
+      { "src": "backend/package.json", "use": "@vercel/node" }
+    ],
+    "routes": [
+      { "src": "/api/(.*)", "dest": "backend/$1" },
+      { "src": "/(.*)", "dest": "frontend/$1" }
+    ]
+  }
+  
